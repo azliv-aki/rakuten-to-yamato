@@ -70,7 +70,6 @@ export default function Home() {
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('Uploaded filename:', file.name);
     if (e.target.files && e.target.files.length > 0) {
       handleFile(e.target.files[0]);
     }
