@@ -41,7 +41,7 @@ export async function generateShippedCSV(file: File): Promise<{
 
   const csvString = result.map(row => row.join(',')).join('\r\n')
   const csvBuffer = iconv.encode(csvString, 'shift_jis')
-  const filename = `rakuten-発送完了報告-${outputDate}.csv`
+  const filename = `${outputDate}_rakuten_shipped.csv`
 
   return { filename, csvBuffer }
 }

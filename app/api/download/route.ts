@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 import ExcelJS from 'exceljs';
 import { convertRakutenToYamato } from '@/lib/rakutenToYamato';
 import iconv from 'iconv-lite';
+import { parse } from 'csv-parse/sync';
 
 export async function POST(req: Request) {
   const formData = await req.formData();
@@ -18,11 +19,11 @@ export async function POST(req: Request) {
   const buffer = Buffer.from(arrayBuffer);
   const text = iconv.decode(buffer, 'cp932');
 
-  // 行ごとに分解してCSV化
-  const rawLines = text
-    .split(/\r?\n/)
-    .filter((line) => line.trim() !== '')
-    .map((line) => line.split(','));
+  // CSVパース
+  const rawLines: string[][] = parse(text, {
+    relax_column_count: true,
+    skip_empty_lines: true,
+  });
 
   // 楽天CSVをヤマト形式に変換
   const yamatoData = convertRakutenToYamato(rawLines);

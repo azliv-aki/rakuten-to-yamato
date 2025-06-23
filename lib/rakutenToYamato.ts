@@ -66,7 +66,6 @@ export function convertRakutenToYamato(rawRows: string[][]): string[][] {
   for (const row of dataRows) {
     const orderNumber = safeGet(row, '受注番号');
     const zip = `${safeGet(row, '送付先郵便番号１')}${safeGet(row, '送付先郵便番号２')}`;
-    const address = `${safeGet(row, '送付先住所：都道府県')}${safeGet(row, '送付先住所：都市区')}${safeGet(row, '送付先住所：町以降')}`;
     const name = `${safeGet(row, '送付先名字')} ${safeGet(row, '送付先名前')}`;
     const phone = `${safeGet(row, '送付先電話番号１')}-${safeGet(row, '送付先電話番号２')}-${safeGet(row, '送付先電話番号３')}`;
     const productNameRaw = safeGet(row, '商品名');

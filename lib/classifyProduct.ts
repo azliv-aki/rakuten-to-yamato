@@ -10,6 +10,12 @@ const rules: { keyword: string; itemName: string; deliveryType: DeliveryType }[]
   { keyword: 'トライセップロープ', itemName: 'トライセップロープ', deliveryType: '8' },
   { keyword: 'プーリーハンドル', itemName: 'プーリーハンドル', deliveryType: '0' },
   { keyword: 'リストラップ', itemName: 'リストラップ', deliveryType: '8' },
+  { keyword: 'リフティングベルトair', itemName: 'リフティングベルトAIR', deliveryType: '0' },
+  { keyword: 'スタンダード', itemName: 'レバーベルトLEX Standard', deliveryType: '0' },
+  { keyword: 'テパード', itemName: 'レバーベルトLEX Tapered', deliveryType: '0' },
+  { keyword: 'ジムバッグ', itemName: 'ジムバッグCREWZ1', deliveryType: '0' },
+  { keyword: 'Angles90', itemName: 'Angles90', deliveryType: '8' },
+  { keyword: 'リフティングストラップ', itemName: 'リフティングストラップ', deliveryType: 'A' },
   // 必要に応じて追加
 ];
 
