@@ -2,6 +2,7 @@ type DeliveryType = 'A' | '8' | '0';
 
 const rules: { keyword: string; itemName: string; deliveryType: DeliveryType }[] = [
   { keyword: 'fitグローブ', itemName: 'FITグローブ', deliveryType: 'A' },
+  { keyword: 'fitグローブpro', itemName: 'FITグローブPRO', deliveryType: 'A' },
   { keyword: 'ニースリーブpro', itemName: 'ニースリーブPRO', deliveryType: '0' },
   { keyword: 'ニースリーブ', itemName: 'ニースリーブ', deliveryType: 'A' },
   { keyword: '3mm エルボースリーブ', itemName: '3mm エルボースリーブ', deliveryType: 'A' },
