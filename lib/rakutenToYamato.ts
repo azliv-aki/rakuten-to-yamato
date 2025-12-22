@@ -1,20 +1,20 @@
-import { classifyProduct } from './classifyProduct';
+import { classifyProduct } from './classifyProduct'
 
 export function convertRakutenToYamato(rawRows: string[][]): string[][] {
-  const header = rawRows[0].map((h) => h.trim().replace(/^"|"$/g, ''));
-  const dataRows = rawRows.slice(1);
+  const header = rawRows[0].map((h) => h.trim().replace(/^"|"$/g, ''))
+  const dataRows = rawRows.slice(1)
 
-  const today = new Date();
-  const todayStr = `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`;
+  const today = new Date()
+  const todayStr = `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`
 
   const safeGet = (row: string[], columnName: string) => {
-    const index = header.indexOf(columnName);
+    const index = header.indexOf(columnName)
     if (index === -1) {
-      console.warn(`⚠️ ヘッダー「${columnName}」が見つかりません`);
-      return '';
+      console.warn(`⚠️ ヘッダー「${columnName}」が見つかりません`)
+      return ''
     }
-    return (row[index] || '').trim().replace(/^"|"$/g, '');
-  };
+    return (row[index] || '').trim().replace(/^"|"$/g, '')
+  }
 
   const yamatoHeader = [
     'お客様管理番号',
@@ -59,61 +59,88 @@ export function convertRakutenToYamato(rawRows: string[][]): string[][] {
     '請求先顧客コード',
     '請求先分類コード',
     '運賃管理番号',
-  ];
+  ]
 
-  const yamatoData: string[][] = [yamatoHeader];
+  const yamatoData: string[][] = [yamatoHeader]
 
   for (const row of dataRows) {
-    const orderNumber = safeGet(row, '受注番号');
-    const zip = `${safeGet(row, '送付先郵便番号１')}${safeGet(row, '送付先郵便番号２')}`;
-    const name = `${safeGet(row, '送付先名字')} ${safeGet(row, '送付先名前')}`;
-    const phone = `${safeGet(row, '送付先電話番号１')}-${safeGet(row, '送付先電話番号２')}-${safeGet(row, '送付先電話番号３')}`;
-    const productNameRaw = safeGet(row, '商品名');
+    const orderNumber = safeGet(row, '受注番号')
+    const zip = `${safeGet(row, '送付先郵便番号１')}${safeGet(row, '送付先郵便番号２')}`
+    const name = `${safeGet(row, '送付先名字')} ${safeGet(row, '送付先名前')}`
+    const phone = `${safeGet(row, '送付先電話番号１')}-${safeGet(row, '送付先電話番号２')}-${safeGet(row, '送付先電話番号３')}`
+    const productNameRaw = safeGet(row, '商品名')
 
-    const deliveryDate = `${safeGet(row, 'お届け日（年）')}/${safeGet(row, 'お届け日（月）')}/${safeGet(row, 'お届け日（日）')}`;
+    const deliveryYear = safeGet(row, 'お届け日（年）')
+    const deliveryMonth = safeGet(row, 'お届け日（月）')
+    const deliveryDay = safeGet(row, 'お届け日（日）')
 
-    const { itemName, deliveryType } = classifyProduct(productNameRaw);
+    const deliveryDate =
+      deliveryYear && deliveryMonth && deliveryDay
+        ? `${deliveryYear}/${deliveryMonth}/${deliveryDay}`
+        : ''
 
-    const utils = deliveryType + '  ' + name;
+    const { itemName, deliveryType } = classifyProduct(productNameRaw)
+
+    const utils = deliveryType + '  ' + name
 
     // 住所分割
-    const pref = safeGet(row, '送付先住所：都道府県');
-    const city = safeGet(row, '送付先住所：都市区') || '';
-    const town = safeGet(row, '送付先住所：町以降');
+    const pref = safeGet(row, '送付先住所：都道府県')
+    const city = safeGet(row, '送付先住所：都市区') || ''
+    const town = safeGet(row, '送付先住所：町以降')
 
-    const townParts = town.split(' ');
-    const address1 = pref + city + (townParts[0] || '');
-    const address2 = townParts[1] || '';
-    const address3 = townParts[2] || '';
-    const address4 = townParts[3] || '';
+    const townParts = town.split(' ')
+    const address1 = pref + city + (townParts[0] || '')
+    const address2 = townParts[1] || ''
+    const address3 = townParts[2] || ''
+    const address4 = townParts[3] || ''
 
     const line = [
       orderNumber, // ✅ お客様管理番号（受注番号）
-      deliveryType,         // ✅ 送り状種別
-      '', '',      // 温度区分, 予備4
-      todayStr,    // ✅ 出荷予定日
-      deliveryDate, '',      // 配達指定日, 時間帯
-      '',          // 届け先コード
-      phone, '',   // 電話番号と枝番
+      deliveryType, // ✅ 送り状種別
+      '',
+      '', // 温度区分, 予備4
+      todayStr, // ✅ 出荷予定日
+      deliveryDate, // 配達指定日
+      '', // 配達希望時間帯
+      '', // 届け先コード
+      phone,
+      '', // 電話番号と枝番
       zip,
       address1,
-      address2, address3, address4,  // 建物・会社・部門
-      name, '',    // 名前、カナ
+      address2,
+      address3,
+      address4, // 建物・会社・部門
+      name,
+      '', // 名前、カナ
       '様',
-      '', '053-545-5033', '', '4350035', '静岡県浜松市中央区西伝寺町72', 'オギスビル2階', 'AZLIV公式オンラインストア', '', // 依頼主情報
-      utils, itemName, '', '',        // 品名1のみ使用
-      '', '',                         // 荷扱い
-      '', '',                         // コレクト
-      '', '',                         // 営業所止置き
-      '',                            // 発行枚数
-      '', '',                             // 個数印字
-      '090646923639',                 // ✅ 請求先顧客コード（仮に固定）
-      '',                             // 請求先分類コード
-      '01',                            // ✅ 運賃管理番号（仮に固定）
-    ];
+      '',
+      '053-545-5033',
+      '',
+      '4350035',
+      '静岡県浜松市中央区西伝寺町72',
+      'オギスビル2階',
+      'AZLIV公式オンラインストア',
+      '', // 依頼主情報
+      utils,
+      itemName,
+      '',
+      '', // 品名1のみ使用
+      '',
+      '', // 荷扱い
+      '',
+      '', // コレクト
+      '',
+      '', // 営業所止置き
+      '', // 発行枚数
+      '',
+      '', // 個数印字
+      '090646923639', // ✅ 請求先顧客コード（仮に固定）
+      '', // 請求先分類コード
+      '01', // ✅ 運賃管理番号（仮に固定）
+    ]
 
-    yamatoData.push(line);
+    yamatoData.push(line)
   }
 
-  return yamatoData;
+  return yamatoData
 }
