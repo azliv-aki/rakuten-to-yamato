@@ -70,6 +70,8 @@ export function convertRakutenToYamato(rawRows: string[][]): string[][] {
     const phone = `${safeGet(row, '送付先電話番号１')}-${safeGet(row, '送付先電話番号２')}-${safeGet(row, '送付先電話番号３')}`;
     const productNameRaw = safeGet(row, '商品名');
 
+    const deliveryDate = `${safeGet(row, 'お届け日（年）')}/${safeGet(row, 'お届け日（月）')}/${safeGet(row, 'お届け日（日）')}`;
+
     const { itemName, deliveryType } = classifyProduct(productNameRaw);
 
     const utils = deliveryType + '  ' + name;
@@ -90,7 +92,7 @@ export function convertRakutenToYamato(rawRows: string[][]): string[][] {
       deliveryType,         // ✅ 送り状種別
       '', '',      // 温度区分, 予備4
       todayStr,    // ✅ 出荷予定日
-      '', '',      // 配達指定日, 時間帯
+      deliveryDate, '',      // 配達指定日, 時間帯
       '',          // 届け先コード
       phone, '',   // 電話番号と枝番
       zip,
