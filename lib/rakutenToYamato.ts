@@ -79,6 +79,9 @@ export function convertRakutenToYamato(rawRows: string[][]): string[][] {
         ? `${deliveryYear}/${deliveryMonth}/${deliveryDay}`
         : ''
 
+    const deliveryTimeRaw = safeGet(row, 'お届け時間');
+    const deliveryTime = convertDeliveryTime(deliveryTimeRaw);
+
     const { itemName, deliveryType } = classifyProduct(productNameRaw)
 
     const utils = deliveryType + '  ' + name
@@ -101,7 +104,7 @@ export function convertRakutenToYamato(rawRows: string[][]): string[][] {
       '', // 温度区分, 予備4
       todayStr, // ✅ 出荷予定日
       deliveryDate, // 配達指定日
-      '', // 配達希望時間帯
+      deliveryTime, // 配達希望時間帯
       '', // 届け先コード
       phone,
       '', // 電話番号と枝番
@@ -144,3 +147,21 @@ export function convertRakutenToYamato(rawRows: string[][]): string[][] {
 
   return yamatoData
 }
+
+const convertDeliveryTime = (raw: string): string => {
+  const value = raw.trim();
+
+  const map: Record<string, string> = {
+    '午前': '0812',
+    '14時-16時': '1416',
+    '16時-18時': '1618',
+    '18時-20時': '1820',
+    '19時-21時': '1921',
+  };
+
+  if (!value) return '';
+  if (map[value]) return map[value];
+
+  console.warn(`⚠️ 未対応のお届け時間: "${raw}"`);
+  return '';
+};
