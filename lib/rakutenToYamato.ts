@@ -74,6 +74,7 @@ export function convertRakutenToYamato(rawRows: string[][]): string[][] {
     const deliveryMonth = safeGet(row, 'お届け日（月）')
     const deliveryDay = safeGet(row, 'お届け日（日）')
 
+    // 配達指定日
     const deliveryDate =
       deliveryYear && deliveryMonth && deliveryDay
         ? `${deliveryYear}/${deliveryMonth}/${deliveryDay}`
