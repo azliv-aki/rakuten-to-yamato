@@ -11,6 +11,7 @@ const rules: { keyword: string; itemName: string; deliveryType: DeliveryType }[]
   { keyword: 'トレーニングベルト az7', itemName: 'トレーニングベルト AZ7', deliveryType: '0' },
   { keyword: 'トライセップロープ', itemName: 'トライセップロープ', deliveryType: '8' },
   { keyword: 'プーリーハンドル', itemName: 'プーリーハンドル', deliveryType: '0' },
+  { keyword: 'リストラップ Lite', itemName: 'リストラップ Lite', deliveryType: 'A' },
   { keyword: '手首サポーター', itemName: 'リストラップ', deliveryType: '8' },
   { keyword: 'リフティングベルトair', itemName: 'リフティングベルトAIR', deliveryType: '0' },
   { keyword: 'スタンダード', itemName: 'レバーベルトLEX Standard', deliveryType: '0' },
