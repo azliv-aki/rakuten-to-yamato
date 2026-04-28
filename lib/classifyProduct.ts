@@ -1,14 +1,16 @@
 type DeliveryType = 'A' | '8' | '0';
 
 const rules: { keyword: string; itemName: string; deliveryType: DeliveryType }[] = [
-  { keyword: 'fitグローブpro', itemName: 'FITグローブPRO', deliveryType: 'A' },
+  { keyword: 'fitグローブpro', itemName: 'FITグローブ PRO', deliveryType: 'A' },
   { keyword: 'fitグローブ', itemName: 'FITグローブ', deliveryType: 'A' },
-  { keyword: 'ニースリーブ pro', itemName: 'ニースリーブPRO', deliveryType: '0' },
-  { keyword: 'ニースリーブ', itemName: 'ニースリーブ', deliveryType: 'A' },
+  { keyword: 'ニースリーブ pro', itemName: 'ニースリーブ PRO', deliveryType: '0' },
+  { keyword: 'ニースリーブ standard', itemName: 'ニースリーブ Standard', deliveryType: 'A' },
+  { keyword: 'ニースリーブ lite', itemName: 'ニースリーブ Lite', deliveryType: 'A' },
   { keyword: '3mm エルボースリーブ', itemName: '3mm エルボースリーブ', deliveryType: 'A' },
   { keyword: '7mm エルボースリーブ', itemName: '7mm エルボースリーブ', deliveryType: 'A' },
   { keyword: '8の字', itemName: '8の字リストストラップ', deliveryType: 'A' },
   { keyword: 'トレーニングベルト az7', itemName: 'トレーニングベルト AZ7', deliveryType: '0' },
+  { keyword: 'トレーニングベルト lite', itemName: 'トレーニングベルト Lite', deliveryType: '0' },
   { keyword: 'トライセップロープ', itemName: 'トライセップロープ', deliveryType: '8' },
   { keyword: 'プーリーハンドル', itemName: 'プーリーハンドル', deliveryType: '0' },
   { keyword: 'リストラップ lite', itemName: 'リストラップ Lite', deliveryType: 'A' },
