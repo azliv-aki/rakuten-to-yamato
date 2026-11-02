@@ -7,7 +7,7 @@ const rules: { keyword: string; itemName: string; deliveryType: DeliveryType }[]
   { keyword: 'ニースリーブ standard', itemName: 'ニースリーブ Standard', deliveryType: 'A' },
   { keyword: 'ニースリーブ lite', itemName: 'ニースリーブ Lite', deliveryType: 'A' },
   { keyword: '3mm エルボースリーブ', itemName: '3mm エルボースリーブ', deliveryType: 'A' },
-  { keyword: '7mm エルボースリーブ', itemName: '7mm エルボースリーブ', deliveryType: 'A' },
+  { keyword: 'エルボースリーブ standard', itemName: 'エルボースリーブ Standard', deliveryType: 'A' },
   { keyword: '8の字', itemName: '8の字リストストラップ', deliveryType: 'A' },
   { keyword: 'トレーニングベルト az7', itemName: 'トレーニングベルト AZ7', deliveryType: '0' },
   { keyword: 'トレーニングベルト lite', itemName: 'トレーニングベルト Lite', deliveryType: '0' },
